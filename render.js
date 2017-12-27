@@ -16,12 +16,10 @@ const createUniqueKey = (objToCheck) => {
   return newKey;
 };
 
-const createGoal = (goalHash, title, image, current, needed) => {
+const createGoal = (gameId, title, current, needed) => {
   let id = '_' + new Date().getTime();
-  console.log(id);
-  goalHash[id] = { title, image, current, needed };
-  console.log(goalHash);
-  renderGoals(goalHash);
+  gameHash[gameId].goals[id] = { title, current, needed };
+  renderGoals(gameHash[gameId].goals);
 };
 
 const renderGoals = (goalHash) => {
@@ -29,41 +27,60 @@ const renderGoals = (goalHash) => {
   for (const id in goalHash) {
     goalHtml += createGoalCard(id, goalHash[id]);
   }
+  renderTopBar(gameHash[selectedGame].title);
   cardContainer.innerHTML = goalHtml;
 }
 
 const createGoalCard = (id, goalObj) => {
-  const { title, image, current, needed } = goalObj;
+  const { title, current, needed } = goalObj;
   return `
-    <div class="goal-card" id="${id}" onClick="focusGoal('${id}')">
-      <div class="goal-title">${title}</div>
-      <div class="goal-edit-button goal-button no-select farmhand-button" onClick="editGoal(event, '${id}')">EDIT</div>
+    <div class="card" id="${id}" onClick="focusGoal('${id}')">
+      <div class="card-title">${title}</div>
+      <div class="card-edit-button card-button no-select farmhand-button" onClick="editGoal(event, '${id}')">EDIT</div>
       <div class="goal-amount no-select">
         <div class="minus-button" onClick="changeAmount(event, false, '${id}')">-</div>
         <div class="current-amount">${current}</div> / 
         <div class="needed-amount">${needed}</div>
         <div class="plus-button" onClick="changeAmount(event, true, '${id}')">+</div>
       </div>
-      <div class="goal-delete-button goal-button no-select farmhand-button" onClick="deleteGoal(event, '${id}')">DELETE</div>
+      <div class="card-delete-button card-button no-select farmhand-button" onClick="deleteGoal(event, '${id}')">DELETE</div>
     </div>
   `;
 };
 
 const renderTopBar = (gameTitle) => {
-  let title = gameTitle ? gameTitle : 'My Games';
-  let button = gameTitle ? 'Add Goal' : 'Add Game';
-  let modalKey = gameTitle ? 'goal' : 'game';
-  topBar.innerHTML = `
+  let title = gameTitle.length ? gameTitle : 'My Games';
+  let button = gameTitle.length ? 'Add Goal' : 'Add Game';
+  let modalKey = gameTitle.length ? 'goal' : 'game';
+  topBar.innerHTML = gameTitle.length ? '<div class="back-button" onClick="resetGames()">< Back to My Games</div>' : '';
+  topBar.innerHTML += `
     <div class="page-title">${title}</div>
     <div class="add-button no-select farmhand-button" onClick="showModal('${modalKey}')">${button}</div>
   `;
 }
 
 const renderGames = (gameHash) => {
-
+  let gameHtml = '';
+  for (const id in gameHash) {
+    gameHtml += createGameCard(id, gameHash[id]);
+  }
+  renderTopBar('');
+  cardContainer.innerHTML = gameHtml;
 };
 
 const createGameCard = (id, gameObj) => {
-
+  const numGoals = Object.keys(gameObj).length;
+  const { title, platform } = gameObj;
+  return `
+    <div class="card" id="${id}" onClick="selectGame('${id}')">
+      <div class="card-title">${title}</div>
+      <div class="card-edit-button card-button no-select farmhand-button" onClick="editGame(event, '${id}')">EDIT</div>
+      <div class="game-body">
+        <div class="game-platform">Platform: ${platform}</div>
+        <div class="game-goals">Goals: ${numGoals}</div>
+      </div>
+      <div class="card-delete-button card-button no-select farmhand-button" onClick="deleteGame(event, '${id}')">DELETE</div>
+    </div>
+  `;
 };
 

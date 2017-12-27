@@ -51,11 +51,19 @@ body {
   margin: 5rem 0 3.5rem 0;
   /* display: flex; */
   text-align: left;
+  position: relative;
 }
 
-#top-bar div {
+#top-bar div:not(.back-button) {
   display: inline-block;
   border: .01rem solid #000;
+  margin-top: 1rem;
+}
+
+.back-button {
+  cursor: pointer;
+  position: absolute;
+  top: -.5rem;
 }
 
 .page-title {
@@ -82,7 +90,7 @@ body {
   justify-content: center;
 }
 
-.goal-card,
+.card,
 .goal-amount,
 .current-amount,
 .needed-amount,
@@ -112,7 +120,7 @@ body {
   color: darkgreen;
 }
 
-.goal-card {
+.card {
   border: .01rem solid #000;
   width: 14.5rem;
   height: 7rem;
@@ -123,7 +131,7 @@ body {
   margin-right: .5rem;
 }
 
-.goal-button {
+.card-button {
   position: absolute;
   right: .5rem;
   border: .01rem solid #000;
@@ -139,11 +147,11 @@ body {
   background-color: #bbb;
 }
 
-.goal-edit-button {
+.card-edit-button {
   top: .3rem;
 }
 
-.goal-delete-button {
+.card-delete-button {
   bottom: .5rem;
 }
 
@@ -153,7 +161,14 @@ body {
   margin-top: 1rem;
 }
 
-.goal-title {
+.game-body {
+  text-align: left;
+  margin-top: 1rem;
+  margin-left: .25rem;
+  line-height: 1.75;
+}
+
+.card-title {
   font-weight: 700;
   padding-left: .25rem;
   text-align: left;

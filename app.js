@@ -26,11 +26,11 @@ const modals = {
       </div>
     `
   },
-  game: function() {
+  goal: function() {
     return `
-      <div class="modal-title">Add Game</div>
+      <div class="modal-title">Add Goal</div>
       <div class="modal-body">
-        Gonna add a game
+        Gonna add a goal
       </div>
     `
   },
@@ -38,7 +38,7 @@ const modals = {
     return `
     <div class="modal-title">Edit Goal</div>
     <div class="modal-body">
-      We're editing ${goalHash[goalToEdit].title}
+      We're editing ${gameHash[selectedGame].goals[goalToEdit].title}
     </div>
     `;
   },
@@ -46,20 +46,40 @@ const modals = {
     return `
       <div class="modal-title">Edit Goal</div>
       <div class="modal-body">
-        We're deleting ${goalHash[goalToDelete].title}
+        We're deleting ${gameHash[selectedGame].goals[goalToDelete].title}
       </div>
     `;
   }
 };
 
-let goalHash = {
-  alsdjf4308fjsjdf: { title: 'First Goal', image: '', current: 0, needed: 100 },
-  alsdjf4308fjsjddf: { title: 'Second Goal', image: '', current: 0, needed: 100 },
-  alsdjf43018fjsjdf: { title: 'Third Goal', image: '', current: 0, needed: 100 },
-  alsdjf4308dsfjsjdf: { title: 'Fourth Goal', image: '', current: 0, needed: 100 },
-  alsdjf4308wfjsjdf: { title: 'Fifth Goal', image: '', current: 0, needed: 100 },
-  alsdjf4308dfjsjdf: { title: 'Sixth Goal', image: '', current: 0, needed: 100 }
+let gameHash = {
+  oifiojasdfioje: {
+    title: 'Breath of the Wild',
+    platform: 'Wii U',
+    goals: {
+      alsdjf4308fjsjdf: { title: 'First Goal', current: 0, needed: 100 },
+      alsdjf4308fjsjddf: { title: 'Second Goal', current: 0, needed: 100 },
+      alsdjf43018fjsjdf: { title: 'Third Goal', current: 0, needed: 100 },
+      alsdjf4308dsfjsjdf: { title: 'Fourth Goal', current: 0, needed: 100 },
+      alsdjf4308wfjsjdf: { title: 'Fifth Goal', current: 0, needed: 100 },
+      alsdjf4308dfjsjdf: { title: 'Sixth Goal', current: 0, needed: 100 }
+    }
+  },
+  oifiojasdadsffioje: {
+    title: 'Witcher 3',
+    platform: 'PS4',
+    goals: {
+      asdfalsdjf4308fjsjdf: { title: 'First Goal', current: 0, needed: 100 },
+      alsdjf4308fjsjddfdf: { title: 'Second Goal', current: 0, needed: 100 },
+      alsdjf43018fjsewjdf: { title: 'Third Goal', current: 0, needed: 100 },
+      alsdjf4308dsasfjsjdf: { title: 'Fourth Goal', current: 0, needed: 100 },
+      alsdasdfjf4308fdwfjsjdf: { title: 'Fifth Goal', current: 0, needed: 100 },
+      alsdjf43frw08dfjsjdf: { title: 'Sixth Goal', current: 0, needed: 100 }
+    }
+  }
 };
+
+let selectedGame = '';
 
 let focusedGoal = '';
 
@@ -79,6 +99,11 @@ const deleteGoal = (e, id) => {
   showModal('deleteGoal');
 };
 
+const selectGame = (id) => {
+  selectedGame = id;
+  renderGoals(gameHash[id].goals);
+}
+
 const focusGoal = (id) => {
   focusedGoal = id;
 };
@@ -86,13 +111,25 @@ const focusGoal = (id) => {
 const changeAmount = (e, increase, id) => {
   let increment = 1;
   if (e.shiftKey) increment = 10;
-  if (increase) goalHash[id].current += increment;
+  if (increase) gameHash[selectedGame].goals[id].current += increment;
   else {
-    goalHash[id].current -= increment;
-    if (goalHash[id].current < 0) goalHash[id].current = 0;
+    gameHash[selectedGame].goals[id].current -= increment;
+    if (gameHash[selectedGame].goals[id].current < 0) gameHash[selectedGame].goals[id].current = 0;
   }
-  renderGoals(goalHash, cardContainer);
+  renderGoals(gameHash[selectedGame].goals, cardContainer);
 };
+
+const resetGames = () => {
+  renderGames(gameHash);
+};
+
+const editGame = (e, id) => {
+  console.log('edit game ' + id);
+};
+
+const deleteGame = (e, id) => {
+  console.log('delete game ' + id);
+}
 
 document.addEventListener('keydown', (e) => {
   if (e.keyCode === 32 && focusedGoal.length) {
@@ -102,5 +139,4 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-renderTopBar('');
-renderGoals(goalHash);
+renderGames(gameHash);
