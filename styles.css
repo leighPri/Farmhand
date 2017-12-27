@@ -25,8 +25,6 @@ body {
   margin: auto;
   flex-grow: 1;
   text-align: center;
-  /* margin-top: 3.1rem;
-  background-color: lightgoldenrodyellow; */
   position: relative;
 }
 
@@ -37,7 +35,6 @@ body {
 }
 
 .goal-card,
-/* .goal-image, */
 .goal-amount,
 .current-amount,
 .needed-amount,
@@ -100,27 +97,22 @@ body {
   bottom: .5rem;
 }
 
-/* .goal-image {
-  width: 5rem;
-  height: 5rem;
-  border: .01rem solid #000;
-} */
-
 .goal-amount {
   font-weight: 700;
   font-size: 2rem;
-  /* position: absolute;
-  top: 2.5rem;
-  right: 2rem; */
   margin-top: 1rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .goal-title {
   font-weight: 700;
   padding-left: .25rem;
   text-align: left;
-  /* padding-top: .75rem; */
-  /* font-size: .85rem; */
 }
 
 .footer {
