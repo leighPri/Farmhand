@@ -6,6 +6,15 @@ body {
   display: flex;
 }
 
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .header {
   position: absolute;
   top: 0;
@@ -32,13 +41,42 @@ body {
 
 .main-container {
   max-width: 80%;
-  margin: auto;
+  margin: 0 auto;
   flex-grow: 1;
   text-align: center;
   position: relative;
 }
 
-#goal-container {
+#top-bar {
+  margin: 5rem 0 3.5rem 0;
+  /* display: flex; */
+  text-align: left;
+}
+
+#top-bar div {
+  display: inline-block;
+  border: .01rem solid #000;
+}
+
+.page-title {
+  /* flex: 1; */
+  text-align: center;
+  font-size: 2rem;
+  padding: 1rem 10rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.add-button {
+  /* flex: 1; */
+  width: 4rem;
+  text-align: center;
+  padding: .5rem 0;
+  float: right;
+  cursor: pointer;
+}
+
+#card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -85,16 +123,6 @@ body {
   margin-right: .5rem;
 }
 
-.goal-button,
-.goal-amount {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 .goal-button {
   position: absolute;
   right: .5rem;
@@ -103,11 +131,11 @@ body {
   cursor: pointer;
 }
 
-.goal-button:hover {
+.farmhand-button:hover {
   background-color: #ccc;
 }
 
-.goal-button:active {
+.farmhand-button:active {
   background-color: #bbb;
 }
 
@@ -133,11 +161,14 @@ body {
 
 .footer {
   position: absolute;
-  bottom: .5rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
   width: 100%;
   align-self: flex-end;
   text-align: center;
   font-size: .75rem;
+  border-top: .01rem solid #000;
+  background-color: inherit;
 }
 
 .modal {
@@ -153,6 +184,7 @@ body {
 
 .dismiss-modal {
   cursor: pointer;
+  position: absolute;
 }
 
 #modal-overlay {
@@ -163,16 +195,22 @@ body {
   display: none;
 }
 
-.modal-title {
+#modal-content {
   text-align: center;
+}
+
+.modal-title {
   font-size: 1.5rem;
   font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .modal-body {
-
+  width: 20rem;
+  text-align: left;
 }
 
 .modal-body ul {
   list-style-type: none;
+  line-height: 1.6rem;
 }

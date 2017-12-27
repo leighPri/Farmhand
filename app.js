@@ -1,20 +1,55 @@
-const goalContainer = document.getElementById('goal-container');
+const topBar = document.getElementById('top-bar');
+const cardContainer = document.getElementById('card-container');
 const modalOverlay = document.getElementById('modal-overlay');
 const modalContent = document.getElementById('modal-content');
 
 const modals = {
-  help: `
-    <div class="modal-title">Controls</div>
+  help: function() {
+    return `
+      <div class="modal-title">Controls</div>
+      <div class="modal-body">
+        <ul>
+          <li>Click buttons to increment</li>
+          <li>Click anywhere on goal to focus</li>
+          <li>Space bar increases focused goal</li>
+          <li>Alt/option + space decreases focused goal</li>
+          <li>Hold shift to increment by 10</li>
+        </ul>
+      </div>
+    `
+  },
+  game: function() {
+    return `
+      <div class="modal-title">Add Game</div>
+      <div class="modal-body">
+        Gonna add a game
+      </div>
+    `
+  },
+  game: function() {
+    return `
+      <div class="modal-title">Add Game</div>
+      <div class="modal-body">
+        Gonna add a game
+      </div>
+    `
+  },
+  editGoal: function() {
+    return `
+    <div class="modal-title">Edit Goal</div>
     <div class="modal-body">
-      <ul>
-        <li>Click buttons to increment</li>
-        <li>Click anywhere on goal to focus</li>
-        <li>Space bar increases focused goal</li>
-        <li>Alt/option + space decreases focused goal</li>
-        <li>Hold shift to increment by 10</li>
-      </ul>
+      We're editing ${goalHash[goalToEdit].title}
     </div>
-  `
+    `;
+  },
+  deleteGoal: function() {
+    return `
+      <div class="modal-title">Edit Goal</div>
+      <div class="modal-body">
+        We're deleting ${goalHash[goalToDelete].title}
+      </div>
+    `;
+  }
 };
 
 let goalHash = {
@@ -28,20 +63,20 @@ let goalHash = {
 
 let focusedGoal = '';
 
-let goalToEdit = '';
+let goalToEdit;
 
-let goalToDelete = '';
+let goalToDelete;
 
 const editGoal = (e, id) => {
   e.stopPropagation();
   goalToEdit = id;
-  console.log('you clicked edit on ' + id);
+  showModal('editGoal');
 };
 
 const deleteGoal = (e, id) => {
   e.stopPropagation();
   goalToDelete = id;
-  console.log('you clicked delete on ' + id);
+  showModal('deleteGoal');
 };
 
 const focusGoal = (id) => {
@@ -56,7 +91,7 @@ const changeAmount = (e, increase, id) => {
     goalHash[id].current -= increment;
     if (goalHash[id].current < 0) goalHash[id].current = 0;
   }
-  renderGoals(goalHash, goalContainer);
+  renderGoals(goalHash, cardContainer);
 };
 
 document.addEventListener('keydown', (e) => {
@@ -67,4 +102,5 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+renderTopBar('');
 renderGoals(goalHash);

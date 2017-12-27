@@ -13,18 +13,28 @@
   </div>
   <div class="help-button" onClick="showModal('help')">?</div>
   <div class="main-container">
-    <div id="goal-container">
-
+    <div id="top-bar">
     </div>
-    <div id="results">
+    <div id="card-container">
 
+    <div class="goal-card" id="${id}" onClick="focusGoal('${id}')">
+        <div class="goal-title">${title}</div>
+        <div class="goal-edit-button goal-button no-select farmhand-button" onClick="editGoal(event, '${id}')">EDIT</div>
+        <div class="goal-amount no-select">
+          <div class="minus-button" onClick="changeAmount(event, false, '${id}')">-</div>
+          <div class="current-amount">${current}</div> / 
+          <div class="needed-amount">${needed}</div>
+          <div class="plus-button" onClick="changeAmount(event, true, '${id}')">+</div>
+        </div>
+        <div class="goal-delete-button goal-button no-select farmhand-button" onClick="deleteGoal(event, '${id}')">DELETE</div>
+      </div>
     </div>
   </div>
   <div class="footer">
     Copyright 2017 Leigh Prince
   </div>
 
-  <div id="modal-overlay">
+  <div id="modal-overlay" onClick="hideModal()">
     <div class="modal" id="help-modal">
       <div class="dismiss-modal" onClick="hideModal()">X</div>
       <div id="modal-content">
