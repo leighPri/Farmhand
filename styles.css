@@ -21,7 +21,17 @@ body {
   font-weight: 700;
 }
 
+.help-button {
+  position: absolute;
+  right: .5rem;
+  margin-top: 3.1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
 .main-container {
+  max-width: 80%;
   margin: auto;
   flex-grow: 1;
   text-align: center;
@@ -31,7 +41,7 @@ body {
 #goal-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .goal-card,
@@ -71,6 +81,18 @@ body {
   padding: .5rem;
   position: relative;
   margin-bottom: 1rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.goal-button,
+.goal-amount {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .goal-button {
@@ -101,12 +123,6 @@ body {
   font-weight: 700;
   font-size: 2rem;
   margin-top: 1rem;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .goal-title {
@@ -117,9 +133,46 @@ body {
 
 .footer {
   position: absolute;
-  bottom: 0;
+  bottom: .5rem;
   width: 100%;
   align-self: flex-end;
   text-align: center;
   font-size: .75rem;
+}
+
+.modal {
+  background-color: #fff;
+  position: absolute;
+  padding: 2rem;
+  border: .01rem solid #000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.dismiss-modal {
+  cursor: pointer;
+}
+
+#modal-overlay {
+  background-color: rgba(0,0,0,.5);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: none;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.modal-body {
+
+}
+
+.modal-body ul {
+  list-style-type: none;
 }

@@ -11,9 +11,10 @@
   <div class="header">
     <div class="title">Farmhand</div>
   </div>
+  <div class="help-button" onClick="showModal('help')">?</div>
   <div class="main-container">
     <div id="goal-container">
-      
+
     </div>
     <div id="results">
 
@@ -21,6 +22,15 @@
   </div>
   <div class="footer">
     Copyright 2017 Leigh Prince
+  </div>
+
+  <div id="modal-overlay">
+    <div class="modal" id="help-modal">
+      <div class="dismiss-modal" onClick="hideModal()">X</div>
+      <div id="modal-content">
+
+      </div>
+    </div>
   </div>
   <script src="./render.js"></script>
   <script src="./app.js"></script>
