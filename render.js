@@ -5,7 +5,7 @@ let goalHash = {
   alsdjf4308fjsjdf: { title: 'First Goal', image: '', current: 0, needed: 100 },
   alsdjf4308fjsjddf: { title: 'Second Goal', image: '', current: 0, needed: 100 },
   alsdjf43018fjsjdf: { title: 'Third Goal', image: '', current: 0, needed: 100 },
-  alsdjf4308dfjsjdf: { title: 'Fourth Goal', image: '', current: 0, needed: 100 },
+  alsdjf4308dsfjsjdf: { title: 'Fourth Goal', image: '', current: 0, needed: 100 },
   alsdjf4308wfjsjdf: { title: 'Fifth Goal', image: '', current: 0, needed: 100 },
   alsdjf4308dfjsjdf: { title: 'Sixth Goal', image: '', current: 0, needed: 100 }
 };
