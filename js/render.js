@@ -91,11 +91,17 @@ const modals = {
         <div class="modal-button farmhand-button confirm" onClick="confirmDeleteGame(event, '${selectedGame}')">Delete</div>
       </div>
     `;
+  },
+  dataNotice: function() {
+    return `
+      <div class="modal-title">Data Notice</div>
+      <div class="modal-body">Farmhand currently uses localStorage to store your game data. Clearing your cache or otherwise wiping this storage will delete all game and goal data.</div>
+    `;
   }
 };
 
 const createGameCard = (id, gameObj) => {
-  const numGoals = Object.keys(gameObj).length;
+  const numGoals = Object.keys(gameObj.goals).length;
   const { title, platform } = gameObj;
   return `
     <div class="card game-card" id="${id}" onClick="selectGame('${id}')">
@@ -118,8 +124,7 @@ const createGoalCard = (id, goalObj) => {
       <div class="card-edit-button card-button no-select farmhand-button" onClick="editGoal(event, '${id}')">EDIT</div>
       <div class="goal-amount no-select">
         <div class="minus-button" onClick="changeAmount(event, false, '${id}')">-</div>
-        <div class="current-amount">${current}</div> / 
-        <div class="needed-amount">${needed}</div>
+        <div class="amount-display">${current} / ${needed}</div>
         <div class="plus-button" onClick="changeAmount(event, true, '${id}')">+</div>
       </div>
       <div class="card-delete-button card-button no-select farmhand-button" onClick="deleteGoal(event, '${id}')">DELETE</div>
@@ -148,6 +153,7 @@ const confirmDeleteGame = (e, id) => {
   delete gameHash[id];
   renderGames(gameHash);
   hideModal();
+  saveAll(gameHash);
 };
 
 const createGoal = (gameId, title, current, needed) => {
@@ -161,6 +167,7 @@ const confirmDeleteGoal = (e, gameId, goalId) => {
   delete gameHash[gameId].goals[goalId];
   renderGoals(gameHash[gameId].goals);
   hideModal();
+  saveAll(gameHash);
 };
 
 const renderGoals = (goalHash) => {
@@ -189,7 +196,7 @@ const renderGames = (gameHash) => {
   for (const id in gameHash) {
     gameHtml += createGameCard(id, gameHash[id]);
   }
+  if (!gameHtml.length) gameHtml = '<div class="empty-goals">No games found, add some!</div>'
   renderTopBar('');
   cardContainer.innerHTML = gameHtml;
 };
-

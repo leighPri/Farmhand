@@ -54,6 +54,7 @@ input[type="number"] {
   flex-grow: 1;
   text-align: center;
   position: relative;
+  margin-bottom: 5rem;
 }
 
 #top-bar {
@@ -98,8 +99,7 @@ input[type="number"] {
 
 .card,
 .goal-amount,
-.current-amount,
-.needed-amount,
+.amount-display,
 .minus-button,
 .plus-button {
   display: inline-block;
@@ -206,7 +206,6 @@ input[type="number"] {
   font-size: .75rem;
   border-top: .01rem solid #000;
   background-color: inherit;
-  margin-top: 5rem;
 }
 
 .modal {
