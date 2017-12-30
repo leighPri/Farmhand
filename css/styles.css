@@ -208,6 +208,16 @@ input[type="number"] {
   background-color: inherit;
 }
 
+.footer-link {
+  cursor: pointer;
+  margin-top: .25rem;
+  display: inline-block;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
 .modal {
   background-color: #fff;
   position: absolute;
@@ -245,6 +255,14 @@ input[type="number"] {
 
 .modal-body {
   padding: 0 1rem;
+}
+
+.clear-all {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+  color: red;
 }
 
 .modal-body.form {

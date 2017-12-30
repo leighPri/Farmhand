@@ -1,37 +1,18 @@
-let gameHash = {
-  // oifiojasdfioje: {
-  //   title: 'Breath of the Wild',
-  //   platform: 'Wii U',
-  //   goals: {
-  //     alsdjf4308fjsjdf: { title: 'First Goal', current: 0, needed: 100 },
-  //     alsdjf4308fjsjddf: { title: 'Second Goal', current: 0, needed: 100 },
-  //     alsdjf43018fjsjdf: { title: 'Third Goal', current: 0, needed: 100 },
-  //     alsdjf4308dsfjsjdf: { title: 'Fourth Goal', current: 0, needed: 100 },
-  //     alsdjf4308fafdjsjdf: { title: 'First Goal', current: 0, needed: 100 },
-  //     alsdjf4308f3fsdjsjddf: { title: 'Second Goal', current: 0, needed: 100 },
-  //     alsdjf43012f8fjsjdf: { title: 'Third Goal', current: 0, needed: 100 },
-  //     alsdjf43ef08dsfjsjdf: { title: 'Fourth Goal', current: 0, needed: 100 },
-  //     alsdjf430adsf8fjsjdf: { title: 'First Goal', current: 0, needed: 100 },
-  //     alsdjf43fd08fjsjddf: { title: 'Second Goal', current: 0, needed: 100 },
-  //     alsdjf43sdf018fjsjdf: { title: 'Third Goal', current: 0, needed: 100 },
-  //     alsdjfasdf4308dsfjsjdf: { title: 'Fourth Goal', current: 0, needed: 100 },
-  //     alsdjf4308wfjsjdf: { title: 'Fifth Goal', current: 0, needed: 100 },
-  //     alsdjf4308dfjsjdf: { title: 'Sixth Goal', current: 0, needed: 100 }
-  //   }
-  // },
-  // oifiojasdadsffioje: {
-  //   title: 'Witcher 3',
-  //   platform: 'PS4',
-  //   goals: {
-  //     asdfalsdjf4308fjsjdf: { title: 'First Goal', current: 0, needed: 100 },
-  //     alsdjf4308fjsjddfdf: { title: 'Second Goal', current: 0, needed: 100 },
-  //     alsdjf43018fjsewjdf: { title: 'Third Goal', current: 0, needed: 100 },
-  //     alsdjf4308dsasfjsjdf: { title: 'Fourth Goal', current: 0, needed: 100 },
-  //     alsdasdfjf4308fdwfjsjdf: { title: 'Fifth Goal', current: 0, needed: 100 },
-  //     alsdjf43frw08dfjsjdf: { title: 'Sixth Goal', current: 0, needed: 100 }
-  //   }
-  // }
-};
+/*
+
+  Schema 
+
+  %id%: {
+    title: '',
+    platform: '',
+    goals: {
+      %id%: { title: '', current: 0, needed: 0 }
+    }
+  }
+
+*/
+
+let gameHash = {};
 
 let selectedGame = '';
 
@@ -45,6 +26,28 @@ const editGoal = (e, id) => {
   e.stopPropagation();
   goalToEdit = id;
   showModal('editGoal');
+};
+
+const saveGoal = (game, goal) => {
+  gameHash[game].goals[goal].title = document.getElementById('goal-form-title').value;
+  let current = document.getElementById('goal-form-current');
+  let needed = document.getElementById('goal-form-needed');
+
+  if (!current.value) current.value = 0;
+  if (Number.isNaN(parseInt(current.value, 10))) current.value = null;
+  if (Number.isNaN(parseInt(needed.value, 10))) needed.value = null;
+
+  if (!current.value || !needed.value) {
+    console.error('show user an error for bad inputs');
+    return;
+  }
+
+  gameHash[game].goals[goal].current = current.value;
+  gameHash[game].goals[goal].needed = needed.value;
+
+  saveAll(gameHash);
+  renderGoals(gameHash[selectedGame].goals);
+  hideModal();
 };
 
 const deleteGoal = (e, id) => {
@@ -107,6 +110,14 @@ const editGame = (e, id) => {
   e.stopPropagation();
   selectedGame = id;
   showModal('editGame');
+};
+
+const saveGame = (id) => {
+  gameHash[id].title = document.getElementById('game-form-title').value;
+  gameHash[id].platform = document.getElementById('game-form-platform').value;
+  saveAll(gameHash);
+  renderGames(gameHash);
+  hideModal();
 };
 
 const deleteGame = (e, id) => {

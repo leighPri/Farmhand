@@ -51,10 +51,20 @@ const modals = {
     `
   },
   editGoal: function() {
+    let goal = gameHash[selectedGame].goals[goalToEdit];
     return `
-    <div class="modal-title">Edit Goal</div>
-    <div class="modal-body">
-      We're editing ${gameHash[selectedGame].goals[goalToEdit].title}
+    <div class="modal-title">Edit ${goal.title}</div>
+    <div class="modal-body form">
+      <label for="goal-form-title">Title</label>
+      <input type="text" id="goal-form-title" value="${goal.title}"><br>
+      <label for="goal-form-current">Currently Have</label>
+      <input type="number" id="goal-form-current" value="${goal.current}"><br>
+      <label for="goal-form-needed">Total Needed</label>
+      <input type="number" id="goal-form-needed" value="${goal.needed}">
+    </div>
+    <div class="modal-button-container">
+      <div class="modal-button farmhand-button cancel" onClick="hideModal()">Cancel</div>
+      <div class="modal-button farmhand-button confirm" onClick="saveGoal('${selectedGame}', '${goalToEdit}')">Save</div>
     </div>
     `;
   },
@@ -74,9 +84,16 @@ const modals = {
   editGame: function() {
     let game = gameHash[selectedGame];
     return `
-    <div class="modal-title">Edit Goal</div>
-    <div class="modal-body">
-      We're editing ${gameHash[selectedGame].title}
+    <div class="modal-title">Edit ${game.title}</div>
+    <div class="modal-body form">
+      <label for="game-form-title">Title</label>
+      <input type="text" id="game-form-title" value="${game.title}"><br>
+      <label for="game-form-platform">Platform</label>
+      <input type="text" id="game-form-platform" value="${game.platform}">
+    </div>
+    <div class="modal-button-container">
+      <div class="modal-button farmhand-button cancel" onClick="hideModal()">Cancel</div>
+      <div class="modal-button farmhand-button confirm" onClick="saveGame('${selectedGame}')">Save</div>
     </div>
     `;
   },
@@ -96,6 +113,7 @@ const modals = {
     return `
       <div class="modal-title">Data Notice</div>
       <div class="modal-body">Farmhand currently uses localStorage to store your game data. Clearing your cache or otherwise wiping this storage will delete all game and goal data.</div>
+      <div class="modal-body clear-all" onClick="clearAll()">Clear all data (CANNOT BE UNDONE)</div>
     `;
   }
 };
@@ -136,6 +154,8 @@ const showModal = (modal) => {
   modalOverlay.style.display = 'block';
   modalContent.innerHTML = modals[modal]();
 };
+
+
 
 const hideModal = () => {
   modalOverlay.style.display = 'none';

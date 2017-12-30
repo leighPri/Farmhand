@@ -5,3 +5,7 @@ const saveAll = (data) => {
 const fetchAll = () => {
   return JSON.parse(localStorage.getItem('gameData'));
 };
+
+const clearAll = () => {
+  localStorage.removeItem('gameData');
+};
