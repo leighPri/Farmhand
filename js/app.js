@@ -12,8 +12,6 @@
 
 */
 
-// this is just so I can test a git thing
-
 let gameHash = {};
 
 let selectedGame = '';
